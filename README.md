@@ -1,5 +1,4 @@
-# journal-app
-Personal journaling platform with mood tracking, hydration monitoring, and voice notes.
+
 # Journal App
 
 A personal productivity and reflection platform built using Python, SQLite, HTML, CSS, and JavaScript.
