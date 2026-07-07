@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Journal - Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body style="display:flex; justify-content:center; align-items:center; height:100vh; background-color:#f0f2f5;">
+    
+    <div class="journal-card" style="width: 350px; padding: 40px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        <h2 id="form-title" style="margin-bottom: 20px; color: #2c3e50;">Journal Login</h2>
+        
+        <input type="text" id="username" placeholder="Username" style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:5px;">
+        
+        <input type="password" id="password" placeholder="Password" style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:5px;">
+        
+        <button id="submit-btn" onclick="handleAuth('login')" class="save-btn" style="width:100%; margin-bottom:15px;">Login</button>
+        
+        <button id="toggle-link" onclick="toggleAuthMode()" style="background:none; border:none; color:#3498db; cursor:pointer; font-size:14px;">
+            Don't have an account? Sign Up
+        </button>
+
+        <p id="error-msg" style="margin-top:15px; font-size:14px; min-height:20px; font-weight: bold;"></p>
+    </div>
+
+    <script>
+        let currentMode = 'login';
+
+        function toggleAuthMode() {
+            const title = document.getElementById('form-title');
+            const submitBtn = document.getElementById('submit-btn');
+            const toggleLink = document.getElementById('toggle-link');
+            const errorDisplay = document.getElementById('error-msg');
+            
+            errorDisplay.innerText = ""; // Clear any lingering errors
+
+            if (currentMode === 'login') {
+                currentMode = 'signup';
+                title.innerText = "Create Account";
+                submitBtn.innerText = "Register & Sign Up";
+                submitBtn.setAttribute('onclick', "handleAuth('signup')");
+                toggleLink.innerText = "Already have an account? Login";
+            } else {
+                currentMode = 'login';
+                title.innerText = "Journal Login";
+                submitBtn.innerText = "Login";
+                submitBtn.setAttribute('onclick', "handleAuth('login')");
+                toggleLink.innerText = "Don't have an account? Sign Up";
+            }
+        }
+    </script>
+
+    <script src="{{ url_for('static', filename='auth.js') }}"></script>
+</body>
+</html>

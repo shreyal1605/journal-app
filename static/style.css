@@ -1,0 +1,221 @@
+/* 1. GLOBAL SETTINGS & BALLET PINK BACKDROP */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #fce4ec !important; /* Soft Ballet Pink */
+    position: relative;
+    overflow: hidden;          /* Keep the laptop background locked */
+}
+
+
+/* 3. STANDALONE CARDS (Login & Sign-up Only) */
+.card {
+    width: 90%;
+    max-width: 450px;
+    background: #ffffff !important;
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid #f8bbd0;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+    margin: 60px auto;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    box-sizing: border-box;
+}
+
+/* 4. RESPONSIBLE FLEXBOX CONTAINER */
+.main-container {
+    display: flex;
+    flex-direction: column;    
+    height: 100vh;             
+    width: 100vw;
+    position: relative;
+    z-index: 5;
+    box-sizing: border-box;
+    transition: padding-left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 5. CUTE DRAWER SIDEBAR */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.4) !important; /* Soft frosted sheeting overlay */
+    border-right: 1px solid rgba(248, 187, 208, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 70px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;    
+    gap: 20px;
+    box-sizing: border-box;
+    z-index: 99;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    overflow-y: auto;          /* Scroll inside the sidebar if needed */
+}
+
+/* Hidden State for Sidebar */
+.sidebar.collapsed {
+    transform: translateX(-100%);
+}
+
+/* Floating White Cards inside the Sidebar */
+.sidebar-section, .water-intake-card, .mood-tracker-card {
+    background: #ffffff !important;
+    border: 1px solid #f8bbd0;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(244, 143, 177, 0.1);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 6. FIXED SIDEBAR TOGGLE BUTTON */
+#sidebar-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 40px;
+    height: 40px;
+    background-color: #ffffff;
+    border: 2px solid #f8bbd0;
+    border-radius: 50%;
+    color: #f06292;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(244, 143, 177, 0.2);
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+#sidebar-toggle:hover {
+    background-color: #fce4ec;
+    transform: scale(1.05);
+}
+
+/* 7. MAIN CONTENT & WORKSPACE WRITING SPACE */
+.content {
+    flex: 1;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.journal-card {
+    width: 100%;
+    max-width: 700px;
+    background: #ffffff !important;
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid #f8bbd0;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+}
+
+/* LAPTOP VIEW ADJUSTMENTS */
+@media (min-width: 768px) {
+    .main-container {
+        padding-left: 280px;   /* Keep room for open sidebar */
+        flex-direction: row;
+    }
+    
+    .main-container.sidebar-collapsed {
+        padding-left: 0;       /* Shift workspace left when hidden */
+    }
+}
+
+/* 8. STRICT 3x2 COMPACT BLUE WATER GRID */
+/* 8. STRICT 3x2 COMPACT BLUE WATER GRID */
+.bottle-container {
+    display: grid !important;
+    grid-template-columns: repeat(3, 30px) !important; /* Forces exactly 3 columns */
+    grid-auto-rows: 45px !important;                   /* Gives each row consistent breathing room */
+    gap: 10px !important;                              /* Tightens space between bottles */
+    justify-content: center;                           /* Centers the grid inside the white card */
+    margin: 15px auto 0 auto !important;
+    width: max-content;                                /* Locks the container size to the 3x2 footprint */
+}
+
+.bottle {
+    width: 24px !important;
+    height: 38px !important;
+    border: 2px solid #29b6f6 !important;             /* Beautiful Ocean Blue outline */
+    border-radius: 4px 4px 8px 8px !important;
+    cursor: pointer;
+    background-color: transparent;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+    display: block !important;                         
+}
+
+.bottle:hover { 
+    transform: scale(1.1); 
+}
+
+.bottle.filled {
+    background-color: #29b6f6 !important;             /* Beautiful Ocean Blue fill */
+    box-shadow: 0 2px 6px rgba(41, 182, 246, 0.3);
+}
+
+/* 9. INNER FORM HANDLING ELEMENTS */
+input, textarea {
+    width: 100%;
+    max-width: 100%;           
+    padding: 12px;
+    margin-bottom: 20px;       
+    border: 2px solid #f8bbd0;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+textarea {
+    min-height: 150px;
+    resize: none;
+}
+
+.save-btn, #mic-btn, .custom-file-upload {
+    background-color: #f06292 !important;
+    color: white !important;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+/* 10. MOOD SELECTION */
+.mood-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.mood-options button {
+    font-size: 24px;
+    background: white;
+    border: 1px solid #f8bbd0;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    transition: 0.2s;
+}

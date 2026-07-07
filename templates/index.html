@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Daily Journal</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    
+    <div class="main-container">
+        <button id="sidebar-toggle" onclick="toggleSidebar()">
+            <span id="toggle-arrow">❯</span>
+        </button>
+        <aside class="sidebar">
+            <div class="card">
+                <h3>💧 Water Intake</h3>
+                <div class="bottle-container">
+                    <div class="bottle" id="bottle-1" onclick="fillBottle(1)"></div>
+                    <div class="bottle" id="bottle-2" onclick="fillBottle(2)"></div>
+                    <div class="bottle" id="bottle-3" onclick="fillBottle(3)"></div>
+                    <div class="bottle" id="bottle-4" onclick="fillBottle(4)"></div>
+                    <div class="bottle" id="bottle-5" onclick="fillBottle(5)"></div>
+                    <div class="bottle" id="bottle-6" onclick="fillBottle(6)"></div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>🎭 Mood Tracker</h3>
+                <div class="mood-options">
+                    <button onclick="setMood('Great')">😎</button>
+                    <button onclick="setMood('Happy')">😁</button>
+                    <button onclick="setMood('Neutral')">😑</button>
+                    <button onclick="setMood('Tired')">😶‍🌫️</button>
+                    <button onclick="setMood('Sad')">😟</button>
+                    <button onclick="setMood('Angry')">🤯</button>
+                </div>
+                <p id="selected-mood" style="margin-top:10px; font-weight:bold;">Current Mood: None</p>
+            </div>
+
+            <div class="card">
+                <h3>🎵 Song of the Day</h3>
+                <input type="text" id="song-input" placeholder="What's playing?" style="width:90%; padding:5px;">
+            </div>
+
+            <div class="card">
+                <h3>🎯 Daily Goals</h3>
+                <div class="todo-input-area">
+                    <input type="text" id="todo-input" placeholder="New goal..." style="width:70%;">
+                    <button onclick="addTodo()">Add</button>
+                </div>
+                <ul id="todo-list"></ul>
+            </div>
+        </aside>
+
+        <main class="content">
+            <div class="calendar-nav">
+                <label for="journal-date">📅 Choose a Date:</label>
+                <input type="date" id="journal-date" onchange="loadEntryByDate()">
+            </div>
+
+           <div class="journal-card">
+                <h2>What happened today?</h2>
+
+                <div class="action-row">
+                    <button id="mic-btn">🎙️ Mic</button>
+                </div>
+
+                <div class="journal-body">
+                    <textarea id="journal-text" placeholder="Start typing or use the mic..."></textarea>
+                </div>
+
+                <button class="save-btn" onclick="saveEntry()">Save Day</button>
+            </div>
+        </main>
+
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
