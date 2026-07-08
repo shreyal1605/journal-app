@@ -7,13 +7,15 @@ app.secret_key = 'pink_lily_secret_key'
 
 DATABASE_URL = "postgresql://postgres.mvbprfzxbabbbwyvgdun:shreyalbandi@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres?sslmode=require"
 
+# Replace your old DATABASE_URL string and get_db_connection function with this:
 def get_db_connection():
     return psycopg2.connect(
-        host="db.mvbprfzxbabbbwyvgdun.supabase.co",  # <-- Switched to direct host
-        port="5432",                                  # <-- Standard Postgres port
+        host="aws-0-ap-southeast-1.pooler.supabase.com",
+        port="6543",
         database="postgres",
-        user="postgres",                              # <-- Pure username without the extra project ID
-        password="shreyalbandi"
+        user="postgres.mvbprfzxbabbbwyvgdun",
+        password="shreyalbandi",
+        sslmode="require"
     )
 
 def init_db():
