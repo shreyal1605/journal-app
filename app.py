@@ -5,16 +5,15 @@ import psycopg2
 app = Flask(__name__)
 app.secret_key = 'pink_lily_secret_key'
 
-DATABASE_URL = "postgresql://postgres.mvbprfzxbabbbwyvgdun:shreyalbandi@aws-0-ap-northeast-1.pooler.supabase.com:5432/postgres?sslmode=require"
+
 
 # Replace your old DATABASE_URL string and get_db_connection function with this:
 def get_db_connection():
     return psycopg2.connect(
-        host="aws-0-ap-northeast-1.pooler.supabase.com", # IPv4 free pooler host
-        port="5432",                                     # Session mode port
+        host="aws-0-ap-northeast-1.pooler.supabase.com",
+        port="5432",
         database="postgres",
-        # Pooler ke liye user format me '.postgres' lagana padta hai
-        user="postgres.mvbprfzxbabbbwyvgdun.postgres",   
+        user="mvbprfzxbabbbwyvgdun.postgres",
         password="shreyalbandi",
         sslmode="require"
     )
@@ -56,6 +55,18 @@ init_db()
 # --- ROUTES ---
 
 @app.route('/')
+def index():
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute('SELECT NOW();')
+        db_version = cur.fetchone()
+        cur.close()
+        conn.close()
+        return f"Database connected successfully! Server time: {db_version[0]}"
+    except Exception as e:
+        return f"Database connection failed: {str(e)}"
+        
 def home():
     # THE BOUNCER
     if 'user_id' not in session:
