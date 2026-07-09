@@ -11,10 +11,9 @@ DATABASE_URL = "postgresql://postgres.mvbprfzxbabbbwyvgdun:shreyalbandi@aws-0-ap
 def get_db_connection():
     return psycopg2.connect(
         host="aws-0-ap-southeast-1.pooler.supabase.com",
-        port="6543",
-        database="postgres",
-        # Notice the '.postgres' appended at the very end of the user string
-        user="postgres.mvbprfzxbabbbwyvgdun.postgres", 
+        port="5432",                                     # The stable pooled session port
+        database="postgres",                             # Standard base db name
+        user="postgres.mvbprfzxbabbbwyvgdun",            # This format routes cleanly
         password="shreyalbandi",
         sslmode="require"
     )
