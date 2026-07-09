@@ -10,10 +10,10 @@ app.secret_key = 'pink_lily_secret_key'
 # Replace your old DATABASE_URL string and get_db_connection function with this:
 def get_db_connection():
     return psycopg2.connect(
-        host="aws-0-ap-northeast-1.pooler.supabase.com",
-        port="5432",
+        host="aws-1-ap-northeast-1.pooler.supabase.com", # FIXED TO AWS-1!
+        port="5432",                                     # Session pooler port
         database="postgres",
-        user="mvbprfzxbabbbwyvgdun.postgres",
+        user="postgres.mvbprfzxbabbbwyvgdun",            # Exact correct format from your string
         password="shreyalbandi",
         sslmode="require"
     )
@@ -55,18 +55,7 @@ init_db()
 # --- ROUTES ---
 
 @app.route('/')
-def index():
-    try:
-        conn = get_db_connection()
-        cur = conn.cursor()
-        cur.execute('SELECT NOW();')
-        db_version = cur.fetchone()
-        cur.close()
-        conn.close()
-        return f"Database connected successfully! Server time: {db_version[0]}"
-    except Exception as e:
-        return f"Database connection failed: {str(e)}"
-        
+
 def home():
     # THE BOUNCER
     if 'user_id' not in session:
