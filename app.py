@@ -10,10 +10,10 @@ DATABASE_URL = "postgresql://postgres.mvbprfzxbabbbwyvgdun:shreyalbandi@aws-0-ap
 # Replace your old DATABASE_URL string and get_db_connection function with this:
 def get_db_connection():
     return psycopg2.connect(
-        host="aws-0-ap-southeast-1.pooler.supabase.com",
-        port="5432",                                     # The stable pooled session port
-        database="postgres",                             # Standard base db name
-        user="postgres.mvbprfzxbabbbwyvgdun",            # This format routes cleanly
+        host="aws-0-ap-northeast-1.pooler.supabase.com", # Changed ap-southeast-1 to ap-northeast-1
+        port="5432",                                     # Stable session pooler port
+        database="postgres",
+        user="postgres.mvbprfzxbabbbwyvgdun",
         password="shreyalbandi",
         sslmode="require"
     )
