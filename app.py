@@ -12,8 +12,9 @@ def get_db_connection():
     return psycopg2.connect(
         host="aws-0-ap-southeast-1.pooler.supabase.com",
         port="6543",
-        database="postgres",                          # Keep this as postgres for the pooler
-        user="postgres.mvbprfzxbabbbwyvgdun",         # Your user + your project ID joined by a dot
+        database="postgres",
+        # Notice the '.postgres' appended at the very end of the user string
+        user="postgres.mvbprfzxbabbbwyvgdun.postgres", 
         password="shreyalbandi",
         sslmode="require"
     )
