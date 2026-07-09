@@ -5,7 +5,7 @@ import psycopg2
 app = Flask(__name__)
 app.secret_key = 'pink_lily_secret_key'
 
-DATABASE_URL = "postgresql://postgres.mvbprfzxbabbbwyvgdun:shreyalbandi@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres?sslmode=require"
+DATABASE_URL = "postgresql://postgres.mvbprfzxbabbbwyvgdun:shreyalbandi@aws-0-ap-northeast-1.pooler.supabase.com:5432/postgres?sslmode=require"
 
 # Replace your old DATABASE_URL string and get_db_connection function with this:
 def get_db_connection():
