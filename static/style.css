@@ -1,357 +1,266 @@
-<<<<<<< HEAD
-/* 1. GLOBAL SETTINGS & BALLET PINK BACKDROP */
+/* Prevent full application wrapper scrolling */
 html, body {
     margin: 0;
     padding: 0;
+    width: 100%;
     height: 100vh;
-    min-height: 100vh;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    background-color: #fce4ec !important; /* Soft Ballet Pink */
-    position: relative;
-    overflow: hidden;          /* Keep the laptop background locked */
+    overflow: hidden; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #FFF5F7;
 }
 
-
-/* 3. STANDALONE CARDS (Login & Sign-up Only) */
-.card {
-    width: 90%;
-    max-width: 450px;
-    background: #ffffff !important;
-    padding: 30px;
-    border-radius: 20px;
-    border: 1px solid #f8bbd0;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
-    margin: 60px auto;
-    text-align: center;
-    position: relative;
-    z-index: 10;
-    box-sizing: border-box;
-}
-
-/* 4. RESPONSIBLE FLEXBOX CONTAINER */
-.main-container {
+.app-container {
     display: flex;
-    flex-direction: column;    
-    height: 100vh;             
-    width: 100vw;
+    width: 100%;
+    height: 100%;
     position: relative;
-    z-index: 5;
-    box-sizing: border-box;
-    transition: padding-left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* 5. CUTE DRAWER SIDEBAR */
+/* 1. SCROLLABLE INDEPENDENT SIDEBAR */
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 280px;
-    height: 100vh;
-    background-color: rgba(255, 255, 255, 0.4) !important; /* Soft frosted sheeting overlay */
-    border-right: 1px solid rgba(248, 187, 208, 0.5);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    padding: 70px 20px 20px 20px;
-    display: flex;
-    flex-direction: column;    
-    gap: 20px;
+    width: 300px;
+    height: 100%;
+    background-color: white;
+    border-right: 1px solid #FFE4E1;
     box-sizing: border-box;
-    z-index: 99;
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-    overflow-y: auto;          /* Scroll inside the sidebar if needed */
-}
-
-/* Hidden State for Sidebar */
-.sidebar.collapsed {
-    transform: translateX(-100%);
-}
-
-/* Floating White Cards inside the Sidebar */
-.sidebar-section, .water-intake-card, .mood-tracker-card {
-    background: #ffffff !important;
-    border: 1px solid #f8bbd0;
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 10px 25px rgba(244, 143, 177, 0.1);
-    width: 100%;
-    box-sizing: border-box;
-}
-
-/* 6. FIXED SIDEBAR TOGGLE BUTTON */
-#sidebar-toggle {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    width: 40px;
-    height: 40px;
-    background-color: #ffffff;
-    border: 2px solid #f8bbd0;
-    border-radius: 50%;
-    color: #f06292;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(244, 143, 177, 0.2);
-    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-#sidebar-toggle:hover {
-    background-color: #fce4ec;
-    transform: scale(1.05);
-}
-
-/* 7. MAIN CONTENT & WORKSPACE WRITING SPACE */
-.content {
-    flex: 1;
-    width: 100%;
-    padding: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
+    transition: transform 0.3s ease, width 0.3s ease;
     overflow-y: auto;
 }
 
-.journal-card {
-    width: 100%;
-    max-width: 700px;
-    background: #ffffff !important;
-    padding: 30px;
-    border-radius: 20px;
-    border: 1px solid #f8bbd0;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
-    box-sizing: border-box;
+.sidebar.collapsed {
+    width: 0px;
+    transform: translateX(-300px);
 }
 
-/* LAPTOP VIEW ADJUSTMENTS */
-@media (min-width: 768px) {
-    .main-container {
-        padding-left: 280px;   /* Keep room for open sidebar */
-        flex-direction: row;
-    }
-    
-    .main-container.sidebar-collapsed {
-        padding-left: 0;       /* Shift workspace left when hidden */
-    }
-}
-
-/* 8. STRICT 3x2 COMPACT BLUE WATER GRID */
-/* 8. STRICT 3x2 COMPACT BLUE WATER GRID */
-.bottle-container {
-    display: grid !important;
-    grid-template-columns: repeat(3, 30px) !important; /* Forces exactly 3 columns */
-    grid-auto-rows: 45px !important;                   /* Gives each row consistent breathing room */
-    gap: 10px !important;                              /* Tightens space between bottles */
-    justify-content: center;                           /* Centers the grid inside the white card */
-    margin: 15px auto 0 auto !important;
-    width: max-content;                                /* Locks the container size to the 3x2 footprint */
-}
-
-.bottle {
-    width: 24px !important;
-    height: 38px !important;
-    border: 2px solid #29b6f6 !important;             /* Beautiful Ocean Blue outline */
-    border-radius: 4px 4px 8px 8px !important;
-    cursor: pointer;
-    background-color: transparent;
-    transition: all 0.2s ease;
-    box-sizing: border-box;
-    display: block !important;                         
-}
-
-.bottle:hover { 
-    transform: scale(1.1); 
-}
-
-.bottle.filled {
-    background-color: #29b6f6 !important;             /* Beautiful Ocean Blue fill */
-    box-shadow: 0 2px 6px rgba(41, 182, 246, 0.3);
-}
-
-/* 9. INNER FORM HANDLING ELEMENTS */
-input, textarea {
-    width: 100%;
-    max-width: 100%;           
-    padding: 12px;
-    margin-bottom: 20px;       
-    border: 2px solid #f8bbd0;
-    border-radius: 10px;
-    box-sizing: border-box;
-}
-
-textarea {
-    min-height: 150px;
-    resize: none;
-}
-
-.save-btn, #mic-btn, .custom-file-upload {
-    background-color: #f06292 !important;
-    color: white !important;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 25px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    display: inline-block;
-}
-
-/* 10. MOOD SELECTION */
-.mood-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.mood-options button {
-    font-size: 24px;
-    background: white;
-    border: 1px solid #f8bbd0;
-    border-radius: 50%;
-    width: 45px;
-    height: 45px;
-    cursor: pointer;
-    transition: 0.2s;
-=======
-/* 1. GLOBAL SETTINGS & BALLET PINK BACKDROP */
-html, body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    background-color: #fce4ec !important; /* Soft Ballet Pink */
-    position: relative;
-    overflow-x: hidden;
-}
-
-/* 2. INTERACTIVE FLOWER STICKERS */
-.flower-sticker {
-    position: fixed;           /* Stays in the corners even when scrolling */
-    width: 180px;              /* Slightly larger for a high-end feel */
-    height: 180px; 
-    object-fit: cover;         /* Centers the flower inside the circle */
-    border-radius: 50%;        /* Elegant circular crop */
-    border: 6px solid #ffffff; /* Thick white frame like a sticker */
-    box-shadow: 0 10px 25px rgba(244, 143, 177, 0.3);
-    z-index: 0;                /* Sits behind the white journal card */
-    transition: all 0.4s ease; /* Smooth interaction speed */
-}
-
-/* Interactivity: Flowers grow and tilt when you hover your mouse */
-.flower-sticker:hover {
-    transform: scale(1.1) rotate(10deg);
-    box-shadow: 0 15px 35px rgba(244, 143, 177, 0.5);
-}
-
-.lily-top-left {
-    top: 20px;
-    left: 20px;
-}
-
-.tulip-bottom-right {
-    bottom: 20px;
-    right: 20px;
-}
-
-/* 3. SOLID WHITE CARDS (Login & Journal) */
-.journal-card, .card {
-    width: 90%;
-    max-width: 450px;
-    background: #ffffff !important; /* 100% solid white */
-    padding: 40px;
-    border-radius: 20px;
-    border: 1px solid #f8bbd0;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
-    margin: 80px auto;
-    text-align: center;
-    position: relative;
-    z-index: 10;                /* Sits on top of flowers */
-}
-
-/* 4. DASHBOARD LAYOUT & SIDEBAR */
-.main-container {
-    display: flex;
-    height: 100vh;
-    background: transparent !important;
-}
-
-.sidebar {
-    flex: 1;
-    background-color: rgba(255, 255, 255, 0.6) !important; /* Glass effect */
+.sidebar-header {
     padding: 20px;
-    border-right: 1px solid #f8bbd0;
-    backdrop-filter: blur(10px);
-    z-index: 11;
+    font-size: 18px;
+    font-weight: bold;
+    color: #D87093;
+    border-bottom: 1px solid #FFF0F5;
 }
 
-.content {
-    flex: 3;
-    padding: 40px;
+.entry-list { 
+    padding: 15px; 
+}
+
+.entry-item {
+    padding: 12px;
+    background: #FFF0F5;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.no-entries {
+    color: #aaa; 
+    font-size: 14px; 
+    text-align: center; 
+    margin-top: 20px;
+}
+
+/* 2. PERSISTENT CLOSING ARROW BUTTON */
+.toggle-arrow {
+    position: absolute;
+    left: 300px;
+    top: 20px;
+    background: #DB7093;
+    color: white;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 100;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+    transition: left 0.3s ease, transform 0.3s ease;
+}
+
+.toggle-arrow.collapsed-arrow {
+    left: 0px;
+    transform: rotate(180deg);
+}
+
+/* 3. CORE FIXED POSITION DASHBOARD */
+.main-workspace {
+    flex-grow: 1;
+    height: 100%;
+    padding: 30px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    background: transparent !important;
+    gap: 15px;
+    background: #FFF5F7;
 }
 
-/* 5. INPUTS & PINK BUTTONS */
-input, textarea {
+.workspace-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.date-container {
+    font-weight: bold; 
+    color: #DB7093;
+}
+
+.logout-btn {
+    color: #DB7093; 
+    text-decoration: none; 
+    font-size: 14px;
+}
+
+/* Grid layout for tracker blocks */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.card {
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #FFE4E1;
+}
+
+.card-title {
+    font-weight: bold; 
+    color: #D87093;
+}
+
+.card-title-spacing {
+    font-weight: bold; 
+    color: #D87093; 
+    margin-bottom: 5px;
+}
+
+.span-two {
+    grid-column: span 2;
+}
+
+/* Water Grid styles */
+.bottles-container { 
+    display: flex; 
+    gap: 8px; 
+    margin-top: 10px; 
+}
+
+.bottle {
+    width: 30px;
+    height: 45px;
+    border: 2px solid #DB7093;
+    border-radius: 4px 4px 8px 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.bottle.filled { 
+    background-color: #FFB6C1; 
+}
+
+/* Mood Grid styles */
+.mood-buttons { 
+    display: flex; 
+    gap: 10px; 
+    margin-top: 10px; 
+}
+
+.mood-btn {
+    padding: 6px 12px;
+    border: 1px solid #FFC0CB;
+    background: #FFF5F7;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.mood-btn:hover { 
+    background: #FFB6C1; 
+}
+
+/* Goal system block elements */
+.todo-bar {
+    display: flex; 
+    gap: 10px; 
+    margin-bottom: 10px;
+}
+
+.add-goal-btn {
+    background: #DB7093; 
+    color: white; 
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#todo-list {
+    list-style: none; 
+    padding: 0; 
+    margin: 0; 
+    max-height: 100px; 
+    overflow-y: auto;
+}
+
+/* Input structures formatting */
+.input-field {
     width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 2px solid #f8bbd0;
-    border-radius: 10px;
+    padding: 8px;
+    border: 1px solid #FFC0CB;
+    border-radius: 6px;
     box-sizing: border-box;
 }
 
-.save-btn, #mic-btn, .custom-file-upload {
-    background-color: #f06292 !important;
-    color: white !important;
+/* Reflection Box & Bottom Bar formatting */
+.editor-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 10px;
+}
+
+.journal-textarea {
+    width: 100%;
+    flex-grow: 1;
+    padding: 15px;
+    border: 1px solid #FFC0CB;
+    border-radius: 12px;
+    font-size: 16px;
+    resize: none;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.action-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mic-button {
+    padding: 10px 20px;
+    background: #FFF0F5;
+    border: 1px solid #DB7093;
+    color: #DB7093;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.save-btn {
+    padding: 12px 35px;
+    background: #DB7093;
+    color: white;
     border: none;
-    padding: 12px 25px;
-    border-radius: 25px;
-    font-weight: bold;
+    border-radius: 8px;
     cursor: pointer;
-    transition: 0.3s;
-}
-
-.save-btn:hover {
-    background-color: #ec407a !important;
-    transform: translateY(-2px);
-}
-
-/* 6. WATER & MOODS */
-.bottle {
-    width: 25px;
-    height: 40px;
-    border: 2px solid #f48fb1; 
-    border-radius: 4px 4px 8px 8px;
-    cursor: pointer;
-}
-
-.bottle.filled {
-    background-color: #f48fb1;
-}
-
-.mood-options button {
-    font-size: 24px;
-    background: white;
-    border: 1px solid #f8bbd0;
-    border-radius: 50%;
-    width: 45px;
-    height: 45px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.mood-options button:hover {
-    background-color: #fce4ec;
-    transform: scale(1.1);
->>>>>>> abfde88f28cbb423c4fc45a1c852b6ba9e4daf96
+    font-size: 16px;
 }
