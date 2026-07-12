@@ -1,4 +1,4 @@
-/* Prevent full application wrapper scrolling */
+/* Base Screen Locking - Removes window tracking scrollbars entirely */
 html, body {
     margin: 0;
     padding: 0;
@@ -16,9 +16,9 @@ html, body {
     position: relative;
 }
 
-/* 1. SCROLLABLE INDEPENDENT SIDEBAR */
+/* 1. SCROLLABLE SIDEBAR (Holds Tracker Cards) */
 .sidebar {
-    width: 300px;
+    width: 320px;
     height: 100%;
     background-color: white;
     border-right: 1px solid #FFE4E1;
@@ -26,12 +26,11 @@ html, body {
     display: flex;
     flex-direction: column;
     transition: transform 0.3s ease, width 0.3s ease;
-    overflow-y: auto;
 }
 
 .sidebar.collapsed {
     width: 0px;
-    transform: translateX(-300px);
+    transform: translateX(-320px);
 }
 
 .sidebar-header {
@@ -42,30 +41,124 @@ html, body {
     border-bottom: 1px solid #FFF0F5;
 }
 
-.entry-list { 
-    padding: 15px; 
+/* Allows widgets inside sidebar to scroll cleanly if screen height is small */
+.sidebar-widgets {
+    padding: 15px;
+    overflow-y: auto;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-.entry-item {
-    padding: 12px;
-    background: #FFF0F5;
-    margin-bottom: 10px;
-    border-radius: 8px;
+.widget-card {
+    background: #FFF5F7;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #FFE4E1;
+    box-sizing: border-box;
+}
+
+.widget-title {
+    font-weight: bold;
+    color: #D87093;
+}
+
+.widget-title-spacing {
+    font-weight: bold;
+    color: #D87093;
+    margin-bottom: 8px;
+}
+
+/* WATER BOTTLES MATCHED IN A CLEAN 3x2 CONTAINER FORMAT */
+.bottles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Enforces exactly 3 columns across */
+    gap: 12px;
+    margin-top: 10px;
+    width: fit-content;
+}
+
+.bottle {
+    width: 34px;
+    height: 48px;
+    border: 2px solid #DB7093;
+    border-radius: 4px 4px 8px 8px;
     cursor: pointer;
+    transition: background 0.2s;
+    background-color: transparent;
+}
+
+.bottle.filled {
+    background-color: #FFB6C1;
+}
+
+/* Mood Button formatting */
+.mood-grid {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.mood-btn {
+    padding: 6px 10px;
+    border: 1px solid #FFC0CB;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.mood-btn:hover {
+    background: #FFB6C1;
+}
+
+/* Goals checklist format spacing */
+.todo-input-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.add-btn {
+    background: #DB7093;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#todo-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 120px;
+    overflow-y: auto;
+}
+
+#todo-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
     font-size: 14px;
 }
 
-.no-entries {
-    color: #aaa; 
-    font-size: 14px; 
-    text-align: center; 
-    margin-top: 20px;
+.input-style {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #FFC0CB;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background: white;
+    outline: none;
 }
 
-/* 2. PERSISTENT CLOSING ARROW BUTTON */
+/* 2. PERSISTENT CLOSING SLIDER ARROW */
 .toggle-arrow {
     position: absolute;
-    left: 300px;
+    left: 320px;
     top: 20px;
     background: #DB7093;
     color: white;
@@ -77,27 +170,22 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     z-index: 100;
     box-shadow: 2px 0 5px rgba(0,0,0,0.05);
-    transition: left 0.3s ease, transform 0.3s ease;
+    transition: left 0.3s ease;
 }
 
-.toggle-arrow.collapsed-arrow {
-    left: 0px;
-    transform: rotate(180deg);
-}
-
-/* 3. CORE FIXED POSITION DASHBOARD */
-.main-workspace {
+/* 3. CORE FIXED POSITION MAIN WRITING APP WRAPPER */
+.main-container {
     flex-grow: 1;
     height: 100%;
     padding: 30px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
     background: #FFF5F7;
 }
 
@@ -105,150 +193,51 @@ html, body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-left: 20px;
+    padding-left: 35px; /* Keeps padding wide clear of the close slider button */
 }
 
 .date-container {
-    font-weight: bold; 
+    font-weight: bold;
     color: #DB7093;
 }
 
 .logout-btn {
-    color: #DB7093; 
-    text-decoration: none; 
+    color: #DB7093;
+    text-decoration: none;
     font-size: 14px;
 }
 
-/* Grid layout for tracker blocks */
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-}
-
-.card {
-    background: white;
-    padding: 15px;
-    border-radius: 12px;
-    border: 1px solid #FFE4E1;
-}
-
-.card-title {
-    font-weight: bold; 
-    color: #D87093;
-}
-
-.card-title-spacing {
-    font-weight: bold; 
-    color: #D87093; 
-    margin-bottom: 5px;
-}
-
-.span-two {
-    grid-column: span 2;
-}
-
-/* Water Grid styles */
-.bottles-container { 
-    display: flex; 
-    gap: 8px; 
-    margin-top: 10px; 
-}
-
-.bottle {
-    width: 30px;
-    height: 45px;
-    border: 2px solid #DB7093;
-    border-radius: 4px 4px 8px 8px;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.bottle.filled { 
-    background-color: #FFB6C1; 
-}
-
-/* Mood Grid styles */
-.mood-buttons { 
-    display: flex; 
-    gap: 10px; 
-    margin-top: 10px; 
-}
-
-.mood-btn {
-    padding: 6px 12px;
-    border: 1px solid #FFC0CB;
-    background: #FFF5F7;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.mood-btn:hover { 
-    background: #FFB6C1; 
-}
-
-/* Goal system block elements */
-.todo-bar {
-    display: flex; 
-    gap: 10px; 
-    margin-bottom: 10px;
-}
-
-.add-goal-btn {
-    background: #DB7093; 
-    color: white; 
-    border: none;
-    padding: 6px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-#todo-list {
-    list-style: none; 
-    padding: 0; 
-    margin: 0; 
-    max-height: 100px; 
-    overflow-y: auto;
-}
-
-/* Input structures formatting */
-.input-field {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #FFC0CB;
-    border-radius: 6px;
-    box-sizing: border-box;
-}
-
-/* Reflection Box & Bottom Bar formatting */
-.editor-container {
+/* Main Text Editing Arena */
+.editor-section {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    gap: 10px;
 }
 
-.journal-textarea {
+.main-journal-textarea {
     width: 100%;
     flex-grow: 1;
-    padding: 15px;
+    padding: 20px;
     border: 1px solid #FFC0CB;
     border-radius: 12px;
     font-size: 16px;
+    line-height: 1.6;
     resize: none;
     outline: none;
     box-sizing: border-box;
+    background: white;
 }
 
-.action-bar {
+.bottom-action-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 15px;
 }
 
-.mic-button {
+.mic-style-btn {
     padding: 10px 20px;
-    background: #FFF0F5;
+    background: white;
     border: 1px solid #DB7093;
     color: #DB7093;
     border-radius: 8px;

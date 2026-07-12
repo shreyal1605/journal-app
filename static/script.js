@@ -31,7 +31,7 @@ function addTodo() {
         
         const li = document.createElement('li');
         li.innerHTML = `
-            <input type="checkbox"> <span>${goalText}</span>
+            <input type="checkbox"> <span style="margin-left:5px; flex-grow:1;">${goalText}</span>
             <button onclick="this.parentElement.remove()" style="color:red; border:none; background:none; cursor:pointer; margin-left:10px;">&times;</button>
         `;
         list.appendChild(li);
@@ -106,7 +106,7 @@ function loadEntryByDate() {
                         const isChecked = (typeof item === 'object' && item.completed) ? "checked" : "";
                         
                         li.innerHTML = `
-                            <input type="checkbox" ${isChecked}> <span>${goalText}</span>
+                            <input type="checkbox" ${isChecked}> <span style="margin-left:5px; flex-grow:1;">${goalText}</span>
                             <button onclick="this.parentElement.remove()" style="color:red; border:none; background:none; cursor:pointer; margin-left:10px;">&times;</button>
                         `;
                         list.appendChild(li);
@@ -131,14 +131,6 @@ function loadEntryByDate() {
     .catch(err => console.error("Error loading values:", err));
 }
 
-function loadEntry(dateString) {
-    const dateElement = document.getElementById('journal-date');
-    if (dateElement) {
-        dateElement.value = dateString;
-        loadEntryByDate();
-    }
-}
-
 function setMood(mood) {
     const moodElement = document.getElementById('selected-mood');
     if (moodElement) {
@@ -146,7 +138,6 @@ function setMood(mood) {
     }
 }
 
-// Separate Mic trigger binding block
 const micBtn = document.getElementById('mic-btn');
 const textArea = document.getElementById('journal-text');
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -164,10 +155,18 @@ if (SpeechRecognition && micBtn && textArea) {
 }
 
 function toggleSidebar() {
-    const sidebar = document.getElementById('sidebar-panel');
-    const arrow = document.getElementById('menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    const arrow = document.getElementById('toggle-arrow');
+    
     if (sidebar && arrow) {
         sidebar.classList.toggle('collapsed');
-        arrow.classList.toggle('collapsed-arrow');
+        
+        if (sidebar.classList.contains('collapsed')) {
+            arrow.innerHTML = '❯'; 
+            arrow.style.left = '0px';
+        } else {
+            arrow.innerHTML = '❮';
+            arrow.style.left = '320px';
+        }
     }
 }

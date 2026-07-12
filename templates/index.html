@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Daily Journal</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>My Personal Journal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <!-- Interactive Flower Stickers -->
-    <img src="/static/lily.png" class="flower-sticker lily-top-left" alt="lily">
-    <img src="/static/tulip.jpg" class="flower-sticker tulip-bottom-right" alt="tulip">
-    
-    <div class="main-container">
-        <!-- Persistent Sidebar Toggle Button -->
-        <button id="sidebar-toggle" onclick="toggleSidebar()">
-            <span id="toggle-arrow">❯</span>
-        </button>
 
-        <!-- Scrollable Left Sidebar Feature Panel -->
-        <aside class="sidebar">
-            <div class="card">
-                <h3>💧 Water Intake</h3>
-                <div class="bottle-container">
+<div class="app-container">
+    
+    <!-- Sidebar sliding close toggle arrow button -->
+    <button class="toggle-arrow" id="toggle-arrow" onclick="toggleSidebar()">❮</button>
+
+    <!-- SIDEBAR PANEL (Holds Water, Mood, and Goals) -->
+    <div class="sidebar">
+        <div class="sidebar-header">My Dashboard</div>
+        
+        <div class="sidebar-widgets">
+            <!-- Water Intake Module -->
+            <div class="widget-card">
+                <div class="widget-title">Water Intake</div>
+                <div class="bottles-grid">
                     <div class="bottle" id="bottle-1" onclick="fillBottle(1)"></div>
                     <div class="bottle" id="bottle-2" onclick="fillBottle(2)"></div>
                     <div class="bottle" id="bottle-3" onclick="fillBottle(3)"></div>
@@ -30,59 +30,60 @@
                     <div class="bottle" id="bottle-6" onclick="fillBottle(6)"></div>
                 </div>
             </div>
-            
-            <div class="card">
-                <h3>🎭 Mood Tracker</h3>
-                <div class="mood-options">
-                    <button onclick="setMood('Great')">😎</button>
-                    <button onclick="setMood('Happy')">😁</button>
-                    <button onclick="setMood('Neutral')">😑</button>
-                    <button onclick="setMood('Tired')">😶‍🌫️</button>
-                    <button onclick="setMood('Sad')">😟</button>
-                    <button onclick="setMood('Angry')">🤯</button>
+
+            <!-- Mood Tracker Module -->
+            <div class="widget-card">
+                <div id="selected-mood" class="widget-title">Current Mood: None</div>
+                <div class="mood-grid">
+                    <button class="mood-btn" onclick="setMood('Happy')">😊 Happy</button>
+                    <button class="mood-btn" onclick="setMood('Neutral')">😐 Neutral</button>
+                    <button class="mood-btn" onclick="setMood('Sad')">😢 Sad</button>
+                    <button class="mood-btn" onclick="setMood('Tired')">😫 Tired</button>
                 </div>
-                <p id="selected-mood" style="margin-top:10px; font-weight:bold;">Current Mood: None</p>
             </div>
 
-            <div class="card">
-                <h3>🎵 Song of the Day</h3>
-                <input type="text" id="song-input" placeholder="What's playing?" style="width:90%; padding:5px;">
+            <!-- Song Tracker Row -->
+            <div class="widget-card">
+                <div class="widget-title-spacing">Song of the Day</div>
+                <input type="text" id="song-input" class="input-style" placeholder="What tracks are you looping today?">
             </div>
 
-            <div class="card">
-                <h3>🎯 Daily Goals</h3>
-                <div class="todo-input-area">
-                    <input type="text" id="todo-input" placeholder="New goal..." style="width:70%;">
-                    <button onclick="addTodo()">Add</button>
+            <!-- Goal Tracker List -->
+            <div class="widget-card">
+                <div class="widget-title-spacing">Today's Goals</div>
+                <div class="todo-input-bar">
+                    <input type="text" id="todo-input" class="input-style" placeholder="Add a new goal...">
+                    <button onclick="addTodo()" class="add-btn">Add</button>
                 </div>
                 <ul id="todo-list"></ul>
             </div>
-        </aside>
-
-        <!-- Main Workspace (No screen-wide scrollbars) -->
-        <main class="content">
-            <div class="calendar-nav">
-                <label for="journal-date">📅 Choose a Date:</label>
-                <input type="date" id="journal-date" onchange="loadEntryByDate()">
-            </div>
-
-           <div class="journal-card">
-                <h2>What happened today?</h2>
-
-                <div class="action-row">
-                    <button id="mic-btn">🎙️ Mic</button>
-                </div>
-
-                <div class="journal-body">
-                    <textarea id="journal-text" placeholder="Start typing or use the mic..."></textarea>
-                </div>
-
-                <button class="save-btn" onclick="saveEntry()">Save Day</button>
-            </div>
-        </main>
-
+        </div>
     </div>
 
-    <script src="/static/script.js"></script>
+    <!-- MAIN CONTAINER (Holds Date Retrieval, Mic, and Writing Workspace) -->
+    <div class="main-container">
+        <div class="workspace-header">
+            <div class="date-container">
+                <label>Journal Retrieval: </label>
+                <input type="date" id="journal-date" onchange="loadEntryByDate()">
+            </div>
+            <a href="/logout" class="logout-btn">Logout</a>
+        </div>
+
+        <!-- Reflection Text Area & Mic Elements -->
+        <div class="editor-section">
+            <div class="widget-title" style="margin-bottom: 8px;">Your Reflections</div>
+            <textarea class="main-journal-textarea" id="journal-text" placeholder="Write your heart out here..."></textarea>
+            
+            <div class="bottom-action-bar">
+                <button id="mic-btn" class="mic-style-btn">🎙️ Click to Speak</button>
+                <button class="save-btn" onclick="saveEntry()">Save Day</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
